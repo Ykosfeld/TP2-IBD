@@ -23,6 +23,11 @@ Repositório colaborativo do Grupo para desenvolvimento, versionamento e entrega
 ├── tp2_template.ipynb     # Template oficial fornecido pelo professor (gabarito de formatação)
 ├── TP2_IBD_PROPOSTA.md    # Proposta oficial submetida e aprovada pela disciplina
 ├── tp2.pdf                # Edital oficial com as instruções, rubricas e datas
+├── graficos/              # Imagens e figuras em alta resolução prontas para os slides
+│   ├── diagrama_er.png
+│   ├── consulta_9_macro_infracoes.png
+│   ├── consulta_10_multas_por_uf.png
+│   └── analise_dispersao_geoespacial.png
 ├── .gitignore             # Bloqueia o versionamento de CSVs, ZIPs e bases SQLite pesadas
 └── README.md              # Este guia de contexto, modelagem e fluxo de trabalho
 ```
