@@ -105,8 +105,8 @@ Caso algum membro do grupo utilize ferramentas de IA generativa para auxiliar na
 
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/SEU_USUARIO/NOME_DO_REPO.git
-   cd NOME_DO_REPO
+   git clone https://github.com/Ykosfeld/TP2-IBD.git
+   cd TP2-IBD
    ```
 2. Certifique-se de que o arquivo compactado `auto_infracao_csv.zip` ou o arquivo `auto_infracao_2026.csv` esteja presente na raiz ou dentro da pasta `auto_infracao_csv/` (disponibilizado internamente pelo grupo).
 3. Abra o Jupyter Notebook ou Google Colab:
