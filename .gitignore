@@ -1,0 +1,19 @@
+# Dados volumosos e banco de dados local (ignorar para não estourar o limite do GitHub)
+*.zip
+*.csv
+auto_infracao_csv/
+*.db
+
+# Checkpoints do Jupyter e cache Python
+.ipynb_checkpoints/
+__pycache__/
+
+# Rascunhos anteriores e arquivos de compilação LaTeX
+Tp2-v1-colab.ipynb
+proposta_tp2.*
+test*
+*.aux
+*.log
+*.out
+*.tex
+missfont.log
