@@ -367,10 +367,13 @@ LIMIT ?;""",
      "params": ["limite"]},
     {"secao": "6.4.1", "titulo": "Consulta 9 · Valor das multas por categoria",
      "tipo": "Agregação sobre junção",
-     "descricao": "Total de autos, soma e média das multas por categoria de infração.",
+     "descricao": "Total de autos, soma e média das multas por categoria de infração, com a participação "
+                  "de cada categoria no total de autos e no valor das multas.",
      "sql": """SELECT t.tipo_infracao,
        COUNT(a.num_auto_infracao) AS total_autuacoes,
+       ROUND(COUNT(a.num_auto_infracao) * 100.0 / (SELECT COUNT(*) FROM Auto_Infracao), 2) AS pct_autuacoes,
        ROUND(SUM(a.valor_multa), 2) AS valor_total_multas,
+       ROUND(SUM(a.valor_multa) * 100.0 / (SELECT SUM(valor_multa) FROM Auto_Infracao), 2) AS pct_valor_multas,
        ROUND(AVG(a.valor_multa), 2) AS valor_medio_multa
 FROM Auto_Infracao a
 JOIN Tipo_Infracao t ON a.id_tipo = t.id_tipo
@@ -380,12 +383,13 @@ ORDER BY valor_total_multas DESC;""",
     {"secao": "6.4.2", "titulo": "Consulta 10 · Valor das multas por UF",
      "tipo": "Agregação sobre junção",
      "descricao": "Total de autos, soma e média das multas por UF, com a participação de cada estado "
-                  "no valor nacional.",
+                  "no total nacional de autos e no valor nacional das multas.",
      "sql": """SELECT m.uf,
        COUNT(a.num_auto_infracao) AS total_autuacoes,
+       ROUND(COUNT(a.num_auto_infracao) * 100.0 / (SELECT COUNT(*) FROM Auto_Infracao), 2) AS pct_autuacoes_nacional,
        ROUND(SUM(a.valor_multa), 2) AS valor_total_multas,
-       ROUND(AVG(a.valor_multa), 2) AS valor_medio_multa,
-       ROUND(100.0 * SUM(a.valor_multa) / (SELECT SUM(valor_multa) FROM Auto_Infracao), 1) AS pct_valor_nacional
+       ROUND(SUM(a.valor_multa) * 100.0 / (SELECT SUM(valor_multa) FROM Auto_Infracao), 2) AS pct_valor_nacional,
+       ROUND(AVG(a.valor_multa), 2) AS valor_medio_multa
 FROM Auto_Infracao a
 JOIN Municipio m ON a.cod_municipio = m.cod_municipio
 GROUP BY m.uf
@@ -433,6 +437,8 @@ with aba_consultas:
     st.caption(f"{inteiro(len(resultado))} linhas retornadas.")
     config = {col: st.column_config.NumberColumn(format="R$ %.2f")
               for col in resultado.columns if col.startswith("valor")}
+    config.update({col: st.column_config.NumberColumn(format="%.2f%%")
+                   for col in resultado.columns if col.startswith("pct")})
     st.dataframe(resultado, hide_index=True, width="stretch", column_config=config)
 
     if "grafico" in c and not resultado.empty:
