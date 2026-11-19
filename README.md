@@ -20,6 +20,9 @@ Repositório colaborativo do Grupo para desenvolvimento, versionamento e entrega
 ```text
 .
 ├── tp2.ipynb              # Notebook principal de entrega (executado e consolidado)
+├── tp2_relatorio.pdf      # Versão em PDF do notebook executado (entrega final)
+├── app.py                 # Aplicação Streamlit (parte extra)
+├── requirements.txt       # Dependências da aplicação Streamlit
 ├── tp2_template.ipynb     # Template oficial fornecido pelo professor (gabarito de formatação)
 ├── TP2_IBD_PROPOSTA.md    # Proposta oficial submetida e aprovada pela disciplina
 ├── tp2.pdf                # Edital oficial com as instruções, rubricas e datas
@@ -109,10 +112,20 @@ Caso algum membro do grupo utilize ferramentas de IA generativa para auxiliar na
    cd TP2-IBD
    ```
 2. Certifique-se de que o arquivo compactado `auto_infracao_csv.zip` ou o arquivo `auto_infracao_2026.csv` esteja presente na raiz ou dentro da pasta `auto_infracao_csv/` (disponibilizado internamente pelo grupo).
-3. Abra o Jupyter Notebook ou Google Colab:
+3. Instale as dependências do notebook (o mapa da Consulta 4 usa `geobr` e `geopandas`, que baixam a malha municipal do IBGE na primeira execução e exigem acesso à internet):
+   ```bash
+   pip install pandas matplotlib geobr geopandas
+   ```
+4. Abra o Jupyter Notebook ou Google Colab:
    ```bash
    jupyter lab tp2.ipynb
    # ou
    jupyter notebook tp2.ipynb
    ```
-4. Execute as células sequencialmente. O script detecta e descompacta a base de dados automaticamente caso necessário, cria o banco `auto_infracao.db` e executa todas as consultas analíticas.
+5. Execute as células sequencialmente. O script detecta e descompacta a base de dados automaticamente caso necessário, cria o banco `auto_infracao.db` e executa todas as consultas analíticas.
+6. (Extra) Aplicação Streamlit: com o banco `auto_infracao.db` já criado pelo notebook, rode na mesma pasta:
+   ```bash
+   pip install -r requirements.txt
+   streamlit run app.py
+   ```
+   A aplicação abre no navegador com filtros por período, UF, categoria, bioma e tipo de pessoa, um mapa dos autos, a análise de infratores e operações e a execução das 10 consultas do relatório.
